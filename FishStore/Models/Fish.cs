@@ -10,7 +10,11 @@ namespace FishStore.Models
     {
         [Key]
         public int FishID { get; set; }
+        [Required(ErrorMessage = "Please enter the fish name")]
+        [StringLength(10)]
+        [Display(Name = "Fish Name")]
         public string FishName { get; set; }
+        [Required]
         public string ImageUrl { get; set; }
     }
 }

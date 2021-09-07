@@ -10,8 +10,20 @@ namespace FishStore.Models
     {
         [Key]
         public int AgentId { get; set; }
+        [Required(ErrorMessage = "Please enter the agent name")]
+        [StringLength(10)]
+        [Display(Name = "Agent Name")]
         public string AgentName { get; set; }
+        [Required(ErrorMessage = "Please enter the agent phone")]
+        [Display(Name = "Phone Number")]
         public int Phone { get; set; }
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
+
+
+
     }
 }

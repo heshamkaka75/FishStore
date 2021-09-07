@@ -11,13 +11,21 @@ namespace FishStore.Models
     {
         [Key]
         public int CFA_id { get; set; }
-
+        [Required(ErrorMessage = "Please enter the fish wight")]
+        [Display(Name = "Wight")]
         public int Weight { get; set; }
+        [Required(ErrorMessage = "Please enter the fish type")]
+        [Display(Name = "Fish Type")]
         public int FishNo { get; set; }
         [ForeignKey("FishNo")]
         public Fish Fish { get; set; }
-
+        [Required(ErrorMessage = "Please enter the Boate type")]
+        [Display(Name = "Boat Type")]
+        public int BoatNo { get; set; }
+        [ForeignKey("BoatNo")]
         public Boat Boat { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Delivery Date")]
         public DateTime DeliveryDate { get; set; }
     }
 }
