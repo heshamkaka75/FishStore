@@ -15,6 +15,7 @@ namespace FishStore.Models
         [Display(Name = "Fish Name")]
         public string FishName { get; set; }
         [Required]
+        [Display(Name = "Image")]
         public string ImageUrl { get; set; }
     }
 }
