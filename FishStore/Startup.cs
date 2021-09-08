@@ -1,4 +1,4 @@
-using FishStore.Data;
+//using FishStore.Data;
 using FishStore.Models;
 using FishStore.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -29,15 +29,19 @@ namespace FishStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddMvc();
             services.AddTransient<IFishStoreRepo<Fish>, FishRepo>();
+            services.AddTransient<IFishStoreRepo<Boat>, BoatRepo>();
+            services.AddTransient<IFishStoreRepo<Agent>, AgentRepo>();
+            services.AddTransient<IFishStoreRepo<AgentOrder>, AgentOrderRepo>();
+            services.AddTransient<IFishStoreRepo<CenterFishAgency>, CenterFishAgencyRepo>();
             services.AddDbContext<FishStoreContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("FishStroe")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<FishStoreContext>();
             services.AddControllersWithViews();
         }
 

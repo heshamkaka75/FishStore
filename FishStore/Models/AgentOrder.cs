@@ -18,7 +18,7 @@ namespace FishStore.Models
         public Agent Agent { get; set; }
         [Required(ErrorMessage = "Please enter the fish type")]
         [Display(Name = "Fish Type")]
-        public Fish FishNo { get; set; }
+        public int FishNo { get; set; }
         [ForeignKey("FishNo")]
         public Fish Fish { get; set; }
         [Required(ErrorMessage = "Please enter the fish wight")]

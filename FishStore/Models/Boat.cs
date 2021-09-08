@@ -22,7 +22,7 @@ namespace FishStore.Models
         public int Phone { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]
-        [EmailAddress]
+        
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

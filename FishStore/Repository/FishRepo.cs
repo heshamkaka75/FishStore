@@ -30,20 +30,20 @@ namespace FishStore.Repository
 
         public Fish Find(int id)
         {
-            var fish = storeContext.Fishs.FirstOrDefault(f => f.FishID == id);
-            return fish;
+            return storeContext.Fishs.FirstOrDefault(f => f.FishID == id);
+             
         }
 
         public IList<Fish> List()
         {
-            var fishes = storeContext.Fishs.ToList();
-            return fishes;
+            return storeContext.Fishs.ToList();
+            
         }
 
         public List<Fish> Search(string text)
         {
-            var result = storeContext.Fishs.Where(r => r.FishName.Contains(text) || r.ImageUrl.Contains(text));
-            return result.ToList();
+            return storeContext.Fishs.Where(r => r.FishName.Contains(text) || r.ImageUrl.Contains(text)).ToList();
+            
         }
 
         public void Update(Fish entity)
