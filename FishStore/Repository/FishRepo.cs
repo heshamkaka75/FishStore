@@ -1,4 +1,5 @@
 ﻿using FishStore.Models;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,12 @@ namespace FishStore.Repository
     public class FishRepo : IFishStoreRepo<Fish>
     {
         private readonly FishStoreContext storeContext;
+        
 
         public FishRepo(FishStoreContext storeContext)
         {
             this.storeContext = storeContext;
+            
         }
         public void Add(Fish entity)
         {

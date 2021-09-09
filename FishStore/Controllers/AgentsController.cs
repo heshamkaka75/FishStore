@@ -10,76 +10,78 @@ using FishStore.Repository;
 
 namespace FishStore.Controllers
 {
-    public class BoatsController : Controller
+    public class AgentsController : Controller
     {
-        private readonly IFishStoreRepo<Boat> boatRepo;
+        private readonly IFishStoreRepo<Agent> storeRepo;
 
-        public BoatsController(IFishStoreRepo<Boat> boatRepo)
+        public AgentsController(IFishStoreRepo<Agent> storeRepo)
         {
-            this.boatRepo = boatRepo;
+            this.storeRepo = storeRepo;
         }
 
-        // GET: Boats
+        // GET: Agents
         public IActionResult Index()
         {
-            return View(boatRepo.List());
+            return View(storeRepo.List());
         }
 
-        // GET: Boats/Details/5
-        public IActionResult Details(int id)
+        // GET: Agents/Details/5
+        public  IActionResult Details(int id)
         {
             
-            var boat = boatRepo.Find(id);
-            if (boat == null)
+
+            var agent = storeRepo.Find(id);
+            if (agent == null)
             {
                 return NotFound();
             }
 
-            return View(boat);
+            return View(agent);
         }
 
-        // GET: Boats/Create
+        // GET: Agents/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Boats/Create
+        // POST: Agents/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Boat boat)
+        public IActionResult Create(Agent agent)
         {
             if (ModelState.IsValid)
             {
-                boatRepo.Add(boat);
+                storeRepo.Add(agent);
+                
                 return RedirectToAction(nameof(Index));
             }
-            return View(boat);
+            return View(agent);
         }
 
-        // GET: Boats/Edit/5
+        // GET: Agents/Edit/5
         public IActionResult Edit(int id)
         {
-           
+            
 
-            var boat = boatRepo.Find(id);
-            if (boat == null)
+            var agent = storeRepo.Find(id);
+            if (agent == null)
             {
                 return NotFound();
             }
-            return View(boat);
+            return View(agent);
         }
 
-        // POST: Boats/Edit/5
+        // POST: Agents/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Boat boat)
+        public IActionResult Edit(int id, Agent agent)
         {
-            if (id != boat.BoatId)
+            if (id != agent.AgentId)
             {
                 return NotFound();
             }
@@ -88,39 +90,39 @@ namespace FishStore.Controllers
             {
                 try
                 {
-                    boatRepo.Update(boat);
+                    storeRepo.Update(agent);
                     
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    return View(boat);
+                    return View(agent);
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(boat);
+            return View(agent);
         }
 
-        // GET: Boats/Delete/5
+        // GET: Agents/Delete/5
         public IActionResult Delete(int id)
         {
             
 
-            var boat = boatRepo.Find(id);
-            if (boat == null)
+            var agent = storeRepo.Find(id);
+            if (agent == null)
             {
                 return NotFound();
             }
 
-            return View(boat);
+            return View(agent);
         }
 
-        // POST: Boats/Delete/5
+        // POST: Agents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             
-            boatRepo.Delete(id);
+            storeRepo.Delete(id);
             
             return RedirectToAction(nameof(Index));
         }

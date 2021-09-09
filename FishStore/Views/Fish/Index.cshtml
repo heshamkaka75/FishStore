@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FishStore.Models.Fish>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FishName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishName)
+            </td>
+            <td>
+                @if (item.ImageUrl != null && item.ImageUrl != "")
+                {
+                    <img src="~/Uploads/@item.ImageUrl" class="img-thumbnail" style="width:40px;" />
+                }
+                else
+                {
+                    <img src="~/empty.png" class="img-thumbnail" style="width:40px;" />
+                }
+                
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FishID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FishID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FishID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
