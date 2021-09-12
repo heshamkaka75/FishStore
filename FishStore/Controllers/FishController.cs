@@ -58,28 +58,19 @@ namespace FishStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-
-                try
+                 try
                 {
                     string filename = string.Empty;
 
                     if (fishViewModel.ImageFile != null)
-                    {
-                        string uploadfile = Path.Combine(webHostEnvironment.WebRootPath, "uploads");
-                        filename = fishViewModel.ImageFile.FileName;
+                    { 
+                        string uploadfile = Path.Combine(webHostEnvironment.WebRootPath, "Uploads");
+                        filename = Guid.NewGuid().ToString() + " _ " + fishViewModel.ImageFile.FileName;
                         string fullpath = Path.Combine(uploadfile, filename);
-                        
 
-                        try
+                        using (var fileStream = new FileStream(fullpath, FileMode.Create))
                         {
-
-                            fishViewModel.ImageFile.CopyTo(new FileStream(fullpath, FileMode.Create));
-
-                        }
-                        catch (Exception)
-                        {
-                            return View(fishViewModel);
+                            fishViewModel.ImageFile.CopyTo(fileStream);
                         }
 
                     }
@@ -124,32 +115,74 @@ namespace FishStore.Controllers
         }
 
         // POST: Fish/Edit/5
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, FishViewModel fishViewModel)
+        public IActionResult Edit(FishViewModel fishViewModel)
         {
-            var fish = storeRepo.Find(fishViewModel.FishID);
+            //var fish = storeRepo.Find(fishViewModel.FishID);
 
-            if (id != fish.FishID)
-            {
-                return NotFound();
-            }
+            //if (fish.FishID == null)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
                 try
                 {
 
-                    var updatedFish = new Fish
+                    string filename = string.Empty;
+
+                    if (fishViewModel.ImageFile != null)
+                    {
+                        string uploadfile = Path.Combine(webHostEnvironment.WebRootPath, "Uploads");
+                         filename = Guid.NewGuid().ToString() + " _ " + fishViewModel.ImageFile.FileName;
+                        string fullpath = Path.Combine(uploadfile, filename);
+
+                        //Delete Old File
+                        string oldFileName = storeRepo.Find(fishViewModel.FishID).ImageUrl;
+                        string oldFullPath = Path.Combine(uploadfile, oldFileName);
+
+                        if (fullpath != oldFullPath)
+                        {
+                            
+                            if(oldFileName == null || oldFileName == "")
+                            {
+                                
+
+                                using (var fileStream = new FileStream(fullpath, FileMode.Create))
+                                {
+                                    fishViewModel.ImageFile.CopyTo(fileStream);
+                                }
+                            }
+                            else
+                            {
+                                System.IO.File.Delete(oldFullPath);
+                                //Save New Image
+                                using (var fileStream = new FileStream(fullpath, FileMode.Create))
+                                {
+                                    fishViewModel.ImageFile.CopyTo(fileStream);
+                                }
+                            }
+                            
+                        }
+                        
+                    }
+
+                    if(filename == null || filename == "")
+                    {
+                        filename = storeRepo.Find(fishViewModel.FishID).ImageUrl;
+                    }
+                    var updatedfish = new Fish
                     {
                         FishID = fishViewModel.FishID,
                         FishName = fishViewModel.FishName,
-                        ImageUrl = fishViewModel.ImageUrl
-                    };
+                        ImageUrl = filename
 
-                    storeRepo.Update(updatedFish);
-                    
+                    };
+                    storeRepo.Update(updatedfish);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

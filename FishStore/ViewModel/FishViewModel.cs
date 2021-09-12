@@ -20,7 +20,6 @@ namespace FishStore.ViewModel
         [Display(Name = "Image")]
         public string ImageUrl { get; set; }
         [Display(Name = "Image")]
-        [Required, FileExtensions(Extensions = (".jpg,.jpeg,.png"), ErrorMessage = "Your image's filetype is not valid.")]
         public IFormFile ImageFile { get; set; }
     }
 }

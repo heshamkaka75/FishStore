@@ -51,7 +51,10 @@ namespace FishStore.Repository
 
         public void Update(Fish entity)
         {
-            storeContext.Fishs.Update(entity);
+            var newFish = Find(entity.FishID);
+            newFish.FishName = entity.FishName;
+            newFish.ImageUrl = entity.ImageUrl;
+            storeContext.Fishs.Update(newFish);
             storeContext.SaveChanges();
         }
     }

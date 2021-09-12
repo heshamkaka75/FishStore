@@ -20,8 +20,16 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ImageUrl)
         </dt>
-        <dd class = "col-sm-10">
-            <img src="~/Uploads/model.ImageUrl" class="img-thumbnail" style="width:40px;" />
+        <dd class="col-sm-10">
+            @if (Model.ImageUrl != null  && Model.ImageUrl != "")
+            {
+                <img src="~/Uploads/@Model.ImageUrl" class="img-thumbnail" style="width: 100px; height: 100px;" />
+            }
+            else
+            {
+                <img src="~/Uploads/empty.jpg" class="img-thumbnail" style="width: 100px; height: 100px;" />
+            }
+
         </dd>
     </dl>
     

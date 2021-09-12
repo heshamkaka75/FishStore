@@ -25,7 +25,9 @@ namespace FishStore.Models
         [ForeignKey("BoatNo")]
         public Boat Boat { get; set; }
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = false,DataFormatString ="{0:dd/MM/yyyy}")]
         [Display(Name = "Delivery Date")]
+        
         public DateTime DeliveryDate { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace FishStore.Repository
 {
@@ -29,18 +30,22 @@ namespace FishStore.Repository
 
         public CenterFishAgency Find(int id)
         {
-            return storeContext.CenterFishAgencies.FirstOrDefault(f => f.CFA_id == id);
+            return storeContext.CenterFishAgencies
+                .Include(a => a.Boat).Include(x => x.Fish).FirstOrDefault(f => f.CFA_id == id);
         }
 
         public IList<CenterFishAgency> List()
         {
-            throw new NotImplementedException();
+            return storeContext.CenterFishAgencies.Include(a => a.Boat).Include(x => x.Fish).ToList();
         }
 
         public List<CenterFishAgency> Search(string text)
         {
-            return storeContext.CenterFishAgencies.ToList();
+            
+            return storeContext.CenterFishAgencies.Include(a => a.Boat).Include(x => x.Fish)
+                .Where(r => r.Fish.FishName.Contains(text) || r.Boat.BoatName.Contains(text)).ToList();
         }
+
 
         public void Update(CenterFishAgency entity)
         {

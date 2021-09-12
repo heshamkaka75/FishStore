@@ -1,0 +1,54 @@
+﻿@model IEnumerable<FishStore.Models.CenterFishAgency>
+
+@{
+    ViewData["Title"] = "Searching";
+}
+
+<h1>Searching</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-hover">
+    <thead class="table-success">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fish)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fish.FishName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Boat.BoatName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CFA_id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CFA_id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CFA_id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

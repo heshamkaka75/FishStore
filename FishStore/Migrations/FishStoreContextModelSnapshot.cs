@@ -143,7 +143,6 @@ namespace FishStore.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FishID");

@@ -25,6 +25,7 @@ namespace FishStore.Models
         [Display(Name = "Fish Wight")]
         public int Weight { get; set; }
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Order Date")]
         public DateTime OrderDate { get; set; }
         [Required(ErrorMessage = "Please select status of order")]

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<FishStore.Models.CenterFishAgency>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New <i class="fas fa-plus"></i></a>
+</p>
+<table class="table table-hover">
+    <thead class="table-success">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fish)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fish.FishName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Boat.BoatName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryDate)
+            </td>
+            
+            <td>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.CFA_id">Edit <i class="fas fa-edit"></i></a> |
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@item.CFA_id">Details <i class="fas fa-eye"></i></a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CFA_id">Delete <i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
